@@ -43,6 +43,15 @@ public class DataBaseAdapter {
         return this;
     }
 
+    public void close(){
+        try{
+            dbHelper.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public long insertText(String text) {
         ContentValues newValues = new ContentValues();
         newValues.put("text", text);
@@ -64,8 +73,13 @@ public class DataBaseAdapter {
     }
 
     public Cursor getAll(){
-        Cursor cursor = db.rawQuery("select * from example",null);
-        return cursor;
+        try {
+            Cursor cursor = db.rawQuery("select * from example", null);
+            return cursor;
+        }
+        catch (Exception e){
+            return null;
+        }
     }
 
     public boolean updateText(long id, String text) {

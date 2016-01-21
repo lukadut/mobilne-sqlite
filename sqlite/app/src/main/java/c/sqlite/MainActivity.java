@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         db = new DataBaseAdapter(this);
-
+        db.open();
         add = (Button) findViewById(R.id.add);
         edit = (Button) findViewById(R.id.edit);
         delete = (Button) findViewById(R.id.delete);
@@ -121,5 +121,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         addTextsToList();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        db.close();
     }
 }
